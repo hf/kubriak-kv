@@ -1,0 +1,10 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  labels:
+    app: riak-kv
+spec:
+  containers:
+    - name: riak-kv
+      image: stojan/kubriak
+  terminationGracePeriodSeconds: 180
