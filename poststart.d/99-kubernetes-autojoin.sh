@@ -13,15 +13,19 @@ then
     RIAK_NODE_NAME=riak
   fi
 
-  RIAK_KUBERNETES_NODES=`python /etc/riak/poststart.d/riak-discover.py`
+  RIAK_KUBERNETES_NODES=`python /etc/riak/poststart.d/riak-discover.py "$HOST_IP"`
 
   CLUSTER_EXISTS=false
 
   for node in $RIAK_KUBERNETES_NODES; do
     if [ "$HOST_IP" != "$node" ]
     then
+      if [ "$CLUSTER_EXISTS" != "true" ]
+      then
+        riak-admin cluster join "$RIAK_NODE_NAME@$node"
+      fi
+
       CLUSTER_EXISTS=true
-      riak-admin cluster join "$RIAK_NODE_NAME@$node"
     fi
   done
 
@@ -33,7 +37,7 @@ then
     while ! riak-admin transfers | grep -iqF 'No transfers active'
     do
       echo 'Transfers in progress'
-      sleep 5
+      sleep 10
     done
   else
     echo "Node is first in cluster."
