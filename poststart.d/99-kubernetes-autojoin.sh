@@ -47,3 +47,5 @@ else
 fi
 
 riak-admin cluster status
+
+echo "ready" > /etc/riak/cluster-status.txt

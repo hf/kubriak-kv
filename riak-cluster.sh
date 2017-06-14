@@ -37,11 +37,13 @@ function graceful_death {
   if [ -n "$KUBERNETES_SERVICE_PORT" -a -n "$KUBERNETES_SERVICE_PORT" ]
   then
     riak-admin cluster leave
+    riak-admin cluster plan
+    riak-admin cluster commit
 
-    while ! riak-admin transfers | grep -iqF 'No transfers active'
+    while `riak ping` == 'pong' && !(riak-admin transfers | grep -iqF 'No transfers active')
     do
       echo 'Transfers in progress'
-      sleep 5
+      sleep 10 
     done
   fi 
 

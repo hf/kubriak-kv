@@ -12,3 +12,9 @@ spec:
       containers:
       - name: riak-kv
         image: stojan/kubriak-kv:latest
+        livenessProbe:
+          exec: 
+            command: "/etc/riak/probes.d/liveness.sh"
+        readinessProbe:
+          exec: 
+            command: "/etc/riak/probes.d/readiness.sh"

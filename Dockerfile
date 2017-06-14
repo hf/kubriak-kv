@@ -1,11 +1,10 @@
 FROM centos:7
 
 ENV RIAK_VERSION 2.2.3-1
-ENV RIAK_NODE_NAME riak
-ENV RIAK_DISTRIBUTED_COOKIE riak
 
 COPY prestart.d /etc/riak/prestart.d
 COPY poststart.d /etc/riak/poststart.d
+COPY probes.d /etc/riak/probes.d
 COPY riak-cluster.sh /home/root/
 
 WORKDIR /home/root
