@@ -13,7 +13,7 @@ then
     RIAK_NODE_NAME=riak
   fi
 
-  RIAK_KUBERNETES_NODES=`python ./riak-discover.py`
+  RIAK_KUBERNETES_NODES=`python /etc/riak/poststart.d/riak-discover.py`
 
   CLUSTER_EXISTS=false
 
