@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: riak-kv
+spec:
+  ports:
+    - name: protobuf
+      port: 8087
+      targetPort: 8087
+    - name: http
+      port: 8089
+      targetPort: 8089
+  selector:
+    app: riak-kv
+
