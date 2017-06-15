@@ -15,6 +15,12 @@ def pad_ip(ip):
 def unpad_ip(ip):
   return '.'.join([('%d' % int(v)) for v in ip.split('.')])
 
+def field(d, field, default=None):
+  if field in d:
+    return d[field]
+  else:
+    return default
+
 host = sys.argv[1]
 
 kubhost = os.getenv('KUBERNETES_SERVICE_HOST', 'kubernetes')
@@ -36,9 +42,10 @@ response = urllib2.urlopen(request)
 data = json.loads(response.read())
 
 ips = []
-for subset in data['subsets']:
-  for address in subset['addresses']:
-    ips += [pad_ip(address['ip'])]
+for subset in field(data, 'subsets', []):
+  for address in field(subset, 'addresses', []):
+    if 'ip' in address:
+      ips += [pad_ip(address['ip'])]
 
 ips = set(ips).difference([pad_ip(host)])
 ips = list(ips)

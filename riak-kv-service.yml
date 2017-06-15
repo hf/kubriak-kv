@@ -2,6 +2,8 @@ kind: Service
 apiVersion: v1
 metadata:
   name: riak-kv
+  labels:
+    app: riak-kv
 spec:
   ports:
     - name: protobuf
