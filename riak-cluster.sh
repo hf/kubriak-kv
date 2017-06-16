@@ -40,10 +40,10 @@ function graceful_death {
     riak-admin cluster plan
     riak-admin cluster commit
 
-    while `riak ping` == 'pong' && !(riak-admin transfers | grep -iqF 'No transfers active')
+    while ! riak-admin transfers | grep -iqF 'No transfers active'
     do
       echo 'Transfers in progress'
-      sleep 10 
+      sleep 10
     done
   fi 
 
