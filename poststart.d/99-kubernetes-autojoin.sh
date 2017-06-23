@@ -6,6 +6,7 @@ if [ -n "$KUBERNETES_SERVICE_HOST" -a -n "$KUBERNETES_SERVICE_PORT" ]
 then
   echo "Kubernetes service available at $KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT"
   
+  HOST_FQDN=`hostname -f`
   HOST_IP=`hostname -I | awk '{ print $1; }'`
 
   if [ -z "$RIAK_NODE_NAME" ]
@@ -18,7 +19,7 @@ then
   CLUSTER_EXISTS=false
 
   for node in $RIAK_KUBERNETES_NODES; do
-    if [ "$HOST_IP" != "$node" ]
+    if [ "$HOST_IP" != "$node" -a "$HOST_FQDN" != "$node" ]
     then
       if [ "$CLUSTER_EXISTS" != "true" ]
       then

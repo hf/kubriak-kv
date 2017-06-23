@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import socket
 import urllib2
 
 def read_secret(secret_name):
@@ -53,5 +54,13 @@ ips.sort()
 
 for i in xrange(len(ips)):
   ips[i] = unpad_ip(ips[i])
+
+for i in xrange(len(ips)):
+  try:
+    ip = ips[i]
+    host = socket.gethostbyaddr(ip)[0]
+    ips[i] = host
+  except:
+    pass
 
 print(' '.join(ips))

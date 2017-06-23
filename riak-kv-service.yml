@@ -5,6 +5,7 @@ metadata:
   labels:
     app: riak-kv
 spec:
+  clusterIP: "None"
   ports:
     - name: protobuf
       port: 8087
