@@ -23,6 +23,7 @@ then
     then
       if [ "$CLUSTER_EXISTS" != "true" ]
       then
+        ping -c 1 "$node"
         riak-admin cluster join "$RIAK_NODE_NAME@$node"
       fi
 
@@ -49,4 +50,3 @@ fi
 
 riak-admin cluster status
 
-echo "ready" > /etc/riak/cluster-status.txt
