@@ -28,19 +28,19 @@ riak ping
 
 riak-admin test
 
+echo "ready" > $CLUSTER_STATUS
+sleep 10
+
 for s in $POSTSTART; do
   . $s
 done
-
-riak ping
-
-echo "ready" > $CLUSTER_STATUS
 
 tail -n 1024 -f /var/log/riak/console.log &
 TAIL_PID=$!
 
 function graceful_death {
   echo "dying" > $CLUSTER_STATUS
+  sleep 10
 
   if [ -n "$KUBERNETES_SERVICE_PORT" -a -n "$KUBERNETES_SERVICE_PORT" ]
   then
