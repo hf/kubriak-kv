@@ -39,9 +39,6 @@ tail -n 1024 -f /var/log/riak/console.log &
 TAIL_PID=$!
 
 function graceful_death {
-  echo "dying" > $CLUSTER_STATUS
-  sleep 10
-
   if [ -n "$KUBERNETES_SERVICE_PORT" -a -n "$KUBERNETES_SERVICE_PORT" ]
   then
     riak-admin cluster leave
@@ -54,6 +51,9 @@ function graceful_death {
       sleep 10
     done
   fi 
+
+  echo "dying" > $CLUSTER_STATUS
+  sleep 10
 
   kill $TAIL_PID
 }
