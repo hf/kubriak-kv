@@ -35,12 +35,6 @@ then
   then
     riak-admin cluster plan
     riak-admin cluster commit
-
-    while ! riak-admin transfers | grep -iqF 'No transfers active'
-    do
-      echo 'Transfers in progress'
-      sleep 10
-    done
   else
     echo "Node is first in cluster."
   fi
@@ -48,5 +42,6 @@ else
   echo "Kubernetes service not detected, will not autojoin cluster."
 fi
 
+sleep 10
 riak-admin cluster status
 
