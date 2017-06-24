@@ -45,7 +45,7 @@ function graceful_death {
     riak-admin cluster plan
     riak-admin cluster commit
 
-    while ! riak-admin transfers | grep -iqF 'No transfers active'
+    while riak ping
     do
       echo 'Transfers in progress'
       sleep 10
