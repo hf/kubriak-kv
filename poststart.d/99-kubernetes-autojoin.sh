@@ -2,10 +2,8 @@
 
 set -ex
 
-if [ -n "$KUBERNETES_SERVICE_HOST" -a -n "$KUBERNETES_SERVICE_PORT" ]
+if iskube.sh
 then
-  echo "Kubernetes service available at $KUBERNETES_SERVICE_HOST:$KUBERNETES_SERVICE_PORT"
-  
   HOST_FQDN=`hostname -f`
   HOST_IP=`hostname -I | awk '{ print $1; }'`
 
@@ -43,5 +41,7 @@ else
 fi
 
 sleep 10
+
 riak-admin cluster status
 
+echo "ready" > /etc/riak/readiness.txt
