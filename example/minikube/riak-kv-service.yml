@@ -11,8 +11,8 @@ spec:
       port: 8087
       targetPort: 8087
     - name: http
-      port: 8089
-      targetPort: 8089
+      port: 8098
+      targetPort: 8098
   selector:
     app: riak-kv
 
