@@ -15,7 +15,7 @@ fi
 LOCAL_HOSTNAME_FQDN=`hostname -f`
 LOCAL_HOSTNAME_IP=`hostname -I | awk '{ print $1; }'`
 
-if [ echo "$LOCAL_HOSTNAME_FQDN" | grep -iq '\.' ]
+if echo "$LOCAL_HOSTNAME_FQDN" | grep -iq '\.'
 then
   RIAK_NODE_HOSTNAME="$LOCAL_HOSTNAME_FQDN"
 else
